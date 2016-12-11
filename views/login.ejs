@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Schedule Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Student Project Management System" />
+    <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico"> 
+    <link rel="stylesheet" type="text/css" href="/stylesheets/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/animate-custom.css" />  
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Welcome to <span>Schedule Manager</span></h1>
+      </header>
+      <section>
+        <div id="container_demo">
+        <a class="hiddenanchor" id="toregister"></a>
+        <a class="hiddenanchor" id="tologin"></a>
+        <div id="wrapper">          
+          <div id="login" class="animate form">
+            <form action="/session" autocomplete="on" method="post">
+              <h1>Log in</h1>
+              <% if(wrongInfo!=null) {%>
+              <h2 style="color:red"><%=wrongInfo%></h2>
+              <%}%>
+              <p>
+                <label for="user_name">User Name</label>
+                <input id="user_name" name="user_name" required="required" type="text">
+              </p>
+              <p>
+                <label for="password">Password</label>
+                <input id="password" name="password" required="required" type="password">
+              </p>
+              <p class="keeplogin">
+                <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping">
+                <label for="loginkeeping">Keep me logged in</label>
+              </p>
+              <p class="login button">
+                <input type="submit" values="Login"/>              
+              </p>
+              <p class="change_link">
+                Don't have an account?
+                <a href="#toregister" class="stRegister">Click here!</a>
+              </p>
+            </form>
+          </div>
+        
+          <div id="register" class="animate form">
+            <form action="/user" autocomplete="on" method="post">
+              <h1>Sign up</h1>
+              <p>
+                <label for="user_name">User name</label>
+                <input id="user_name" name="user_name" required="required" type="text">
+              </p>
+                <p>
+                <label for="password">Password</label>
+                <input id="password" name="password" required="required" type="password">
+              </p>
+              <p class="signin button">
+                <input type="submit" values="Sign up"/>
+              </p>
+              <p class="change_link">
+                Already sign up?
+                <a href="#tologin" class=stRegister>Log in</a>
+              </p>
+            </form>
+          </div>
+        </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

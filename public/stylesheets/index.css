@@ -1,0 +1,30 @@
+.time-div {
+	height: 30px;text-align:center;background:#E7EDF2;border:1px solid #ddd;
+}
+.time-head-div {
+	height: 45px;text-align:center;background:#66ccff;
+}
+#pre_a {
+/*	width: 20px;*/
+}
+
+
+#calendar { font-family:Arial, Helvetica, sans-serif; }
+#calendar .header td { height:40px; text-align:center;}
+#calendar .header .prevMonthActive,#calendar .header .nextMonthActive { width:50px; cursor:pointer;}
+#calendar .header .prevMonth,#calendar .header .nextMonth { width:50px;}
+#calendar .header .prevMonthActive { background:url(/images/prev.png) no-repeat center center;}
+#calendar .header .nextMonthActive { background:url(/images/next.png) no-repeat center center;}
+#calendar .header .prevMonth { background:url(/images/prev.png) no-repeat center center;}
+#calendar .header .nextMonth { background:url(/images/next.png) no-repeat center center;}
+#calendar .header .currentDate { width:240px; font-size:20px; font-weight:bold;color:#96ADC3;}
+
+#calendar .content {background:#fff; font-size:16px; color:#b4b4b4;}
+#calendar .content  td { width:50px; height:35px; text-align:center;border: 2px solid #6cf;}
+#calendar .content  .weekdays { background:#6cf;font-size:24px; font-weight:bold; color:#fff;}
+#calendar .content  .weekdays  td { height:45px;}
+#calendar .content  .isDoubleDay {color:#0C4790; font-weight:bold; cursor:pointer;}
+#calendar .content  .isDate { cursor:pointer;}
+#calendar .content  .isToday { cursor:pointer;color:red;}
+/*#calendar .content  .isTripleDay {background:black; font-weight:bold; cursor:pointer;}*/
+#calendar .content  .isScheduled {background:#E7EDF2; font-weight:bold; cursor:pointer;}

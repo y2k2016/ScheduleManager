@@ -1,0 +1,81 @@
+<definitions name="ScheduleService"
+   targetNamespace="http://www.schedule.com/wsdl/ScheduleService.wsdl"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:tns="http://www.schedule.com/wsdl/ScheduleService.wsdl"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <types>
+    <xsd:schema version="1.0" targetNamespace="http://www.schedule.com/wsdl/ScheduleService.wsdl" >
+
+      <xsd:complexType name="getSchedules">
+        <xsd:sequence>
+          <xsd:element name="user" type="tns:user" minOccurs="0" />
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="getSchedulesResponse">
+        <xsd:sequence>
+          <xsd:element name="schedule" type="tns:schedule" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="user">
+        <xsd:sequence>
+          <xsd:element name="userName" type="xsd:string" minOccurs="0" />
+          <xsd:element name="queryDateTime" type="xsd:dateTime" minOccurs="0" />
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="schedule">
+        <xsd:sequence>
+          <xsd:element name="startDateTime" type="xsd:dateTime" minOccurs="0" />
+          <xsd:element name="endDateTime" type="xsd:dateTime" minOccurs="0" />
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:element name="user" nillable="true" type="tns:user" />
+      <xsd:element name="schedule" nillable="true" type="tns:schedule" />
+
+      <xsd:element name="getSchedules" nillable="true" type="tns:getSchedules" />
+      <xsd:element name="getSchedulesResponse" nillable="true" type="tns:getSchedulesResponse" />
+
+    </xsd:schema>
+  </types>
+
+   <message name="getSchedules">
+    <part name="parameters" element="tns:getSchedules"/>
+   </message>
+   <message name="getSchedulesResponse">
+    <part name="parameters" element="tns:getSchedulesResponse"/>
+   </message>
+
+   <portType name="SchedulePortType">
+    <operation name="getSchedules">
+       <input message="tns:getSchedules" name="getSchedules" />
+       <output message="tns:getSchedulesResponse" name="getSchedulesResponse" />
+    </operation>
+   </portType>
+
+   <binding name="ScheduleBinding" type="tns:SchedulePortType">
+   <soap:binding style="document"
+    transport="http://schemas.xmlsoap.org/soap/http"/>
+   <operation name="getSchedules">
+    <soap:operation soapAction="getSchedules"/>
+    <input name="getSchedules">
+       <soap:body use="literal"/>
+    </input>
+    <output name="getSchedulesResponse">
+       <soap:body use="literal"/>
+    </output>
+   </operation>
+   </binding>
+
+   <service name="ScheduleService">
+    <documentation>WSDL File for ScheduleService</documentation>
+    <port binding="tns:ScheduleBinding" name="SchedulePort">
+       <soap:address
+        location="http://127.0.0.1:3000/wsdl" />
+    </port>
+   </service>
+</definitions>

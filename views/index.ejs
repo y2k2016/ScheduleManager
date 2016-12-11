@@ -1,0 +1,97 @@
+<% include head %>
+<div class="container">
+<div class="alert alert-warning" role="alert" id="wrong_div" style="display:none">
+      Something wrong! Please try again!
+</div>
+<div class="col-md-8 col-sm-8" style="padding-left: 0px;padding-right: 0px">
+<div class="col-md-12" style="padding-left: 0px;padding-right: 0px">
+	<p class="col-md-4" id="select_date" style="font-size:20px;margin-left:10px;">2016-12-10</p>
+	<div align="right">
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#newScheduleModal" style="margin-bottom: 5px">
+		new
+	</button></div>
+	<!-- Modal -->
+	<div class="modal fade" id="newScheduleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">NEW SCHEDULE</h4>
+				</div>
+				<div class="modal-body">
+					<label>Title</label>
+					<input type="text" class="form-control" id="new_schedule_title" placeholder="title">
+					<label>Description</label>
+					<textarea class="form-control" id="new_schedule_description" placeholder="description"></textarea>
+					<label>Start</label>
+					<input type="time" class="form-control" id="new_schedule_start_time" value="00:00">
+					<label>End</label>
+					<input type="time" class="form-control" id="new_schedule_end_time" value="00:00">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="createSchedule()">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-2 col-md-2" style="padding-left: 0px;padding-right: 0px">
+	<button class="col-md-12 btn time-head-div">Time</button>
+	<div class="col-md-12 time-div">00:00</div>
+	<div class="col-md-12 time-div">01:00</div>
+	<div class="col-md-12 time-div">02:00</div>
+	<div class="col-md-12 time-div">03:00</div>
+	<div class="col-md-12 time-div">04:00</div>
+	<div class="col-md-12 time-div">05:00</div>
+	<div class="col-md-12 time-div">06:00</div>
+	<div class="col-md-12 time-div">07:00</div>
+	<div class="col-md-12 time-div">08:00</div>
+	<div class="col-md-12 time-div">09:00</div>
+	<div class="col-md-12 time-div">10:00</div>
+	<div class="col-md-12 time-div">11:00</div>
+	<div class="col-md-12 time-div">12:00</div>
+	<div class="col-md-12 time-div">13:00</div>
+	<div class="col-md-12 time-div">14:00</div>
+	<div class="col-md-12 time-div">15:00</div>
+	<div class="col-md-12 time-div">16:00</div>
+	<div class="col-md-12 time-div">17:00</div>
+	<div class="col-md-12 time-div">18:00</div>
+	<div class="col-md-12 time-div">19:00</div>
+	<div class="col-md-12 time-div">20:00</div>
+	<div class="col-md-12 time-div">21:00</div>
+	<div class="col-md-12 time-div">22:00</div>
+	<div class="col-md-12 time-div">23:00</div>
+</div>
+<div class="col-sm-10 col-md-10" id="day_schedule" style="padding-left: 0px;padding-right: 0px">
+	<button class="col-md-12 btn time-head-div">schedule</button>
+</div>
+<div class="col-sm-5 col-md-5" id="friend_day_schedule" style="padding-left: 0px;padding-right: 0px;display:none">
+	<div class="col-md-12 time-head-div">friend schedule</div>
+</div>
+</div>
+
+<div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
+
+<div id="calendar" style="padding-left: 0px;padding-right: 0px"></div>
+<div class="col-md-12" style="padding-left: 0px;padding-top:20px">
+<label>Find friend</label>
+<select class="form-control" id="systemType"><option value="ScheduleManager1">ScheduleManager1</option><option value="ScheduleManager2">ScheduleManager2</option></select>
+<select class="form-control" id="serviceType"><option value="restful">restful</option><option value="soap">soap</option></select>
+<input type="text" class="form-control" id="friend_name" placeholder="name">
+<button type="button" class="btn btn-default" onclick="findFriendSchedules()">find</button>
+</div>
+
+</div>
+</div>
+
+<script src="/javascripts/calendar.js"></script>
+<script>
+
+var schedules = <%-JSON.stringify(schedules)%>;
+var show_date = new Date(<%-JSON.stringify(date)%>);
+ecT.init(show_date.getFullYear(),show_date.getMonth(),schedules, 'calendar');
+ecT.updateDaySchedule(show_date);
+
+</script>
+<% include foot %>
