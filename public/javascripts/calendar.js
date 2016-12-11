@@ -34,7 +34,11 @@ function requests(req_url, method, req_mess, callback) {
 				callback();
 			}
 			else if(xmlhttp.status >= 200 && xmlhttp.status < 300) {
-				var renderMessage = JSON.parse(xmlhttp.responseText);
+				try {
+					var renderMessage = JSON.parse(xmlhttp.responseText);
+				} catch (err) {
+					var renderMessage = {};
+				}
 				callback(undefined, renderMessage);
 			}
 			else if (xmlhttp.status === 404) {

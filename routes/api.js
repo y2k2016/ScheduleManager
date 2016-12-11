@@ -2,33 +2,18 @@ var express = require('express');
 var router = express.Router();
 var Schedule = require('../models/Schedule')
 var User = require("../models/User");
-
-var isSameDate = function(a,b){
-    return a.getFullYear()  == b.getFullYear() 
-            && a.getMonth() == b.getMonth() 
-            && a.getDate()  == b.getDate();
-}
-
-// request:
-// 		url: 	http://127.0.0.1:3000/api
-// 		method: post
-// 		params: {user_name : "y2k", query_date : "2016-12-11T07:45:03.718Z"}
-
-// response:
-// 		httpcode:500   error
-// 			  	 404   not found
-// 			  	 200   {schedules : [
-// 			  						{start_date:"2016-12-11T07:45:03.718Z", end_date:"2016-12-11T07:45:03.718Z"},
-// 			  						{start_date:"2016-12-11T07:45:03.718Z", end_date:"2016-12-11T07:45:03.718Z"},
-// 			  						{start_date:"2016-12-11T07:45:03.718Z", end_date:"2016-12-11T07:45:03.718Z"}
-// 			  					    ]
-// 			  		   }
-
-
+var Utils = require("../utils/Utils");
 
 router.post("/", function(req, res, next) {
-    var name = req.body.user_name;
-    var date = new Date(req.body.query_date);
+    try {
+        var name = req.body.user_name;
+        var date = new Date(req.body.query_date);
+        if (!Utils.isString(name) || !(date instanceof Date)) {
+            return res.sendStatus(400);
+        }
+    } catch(err) {
+        return res.sendStatus(400);
+    }
 
     User.findByName(name, function(err, user) {
         if (err) {
@@ -44,8 +29,8 @@ router.post("/", function(req, res, next) {
             }
             var mess_schedules = []
             for (var i = 0; i < schedules.length; i++) {
-                if(isSameDate(date, schedules[i].start_date)) {
-                    mess_schedules[mess_schedules.length] = schedules[i];
+                if(Utils.isSameDate(date, schedules[i].start_date)) {
+                    mess_schedules[mess_schedules.length] = mess_schedules[mess_schedules.length] = {start_date:schedules[i].start_date.toJSON(), end_date:schedules[i].end_date.toJSON()};
                 }
             }
             res.json({schedules:mess_schedules});

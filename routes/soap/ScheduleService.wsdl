@@ -75,7 +75,7 @@
     <documentation>WSDL File for ScheduleService</documentation>
     <port binding="tns:ScheduleBinding" name="SchedulePort">
        <soap:address
-        location="http://127.0.0.1:3000/wsdl" />
+        location="http://110.64.89.40:3000/wsdl" />
     </port>
    </service>
 </definitions>

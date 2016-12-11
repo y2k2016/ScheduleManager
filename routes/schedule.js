@@ -10,16 +10,16 @@ function checkLogin(req, res, next) {
     next();
 }
 
-
-var isSameDate = function(a,b){
-    return a.getFullYear()  == b.getFullYear() 
-            && a.getMonth() == b.getMonth() 
-            && a.getDate()  == b.getDate();
+function isValideSchedule(schedule) {
+    return true;
 }
 
 router.post("/", checkLogin);
 router.post('/', function (req, res, next) {
     req.body.user_id =req.session.user_id;
+    if (!isValideSchedule(req.body)) {
+        res.sendStatus(400);
+    }
     var newSchedule = new Schedule(req.body);
     newSchedule.create(function (err) {
         if (err) {
@@ -45,19 +45,15 @@ router.delete('/:schedule_id', function (req, res, next) {
 });
 
 
-router.get('/:schedule_id', function (req, res, next) {
-    Schedule.findByUserID("1", function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        res.send('...');
-    });
-});
-
 router.put('/:schedule_id',checkLogin);
 router.put('/:schedule_id', function (req, res, next) {
     req.body.schedule_id = req.params.schedule_id;
     req.body.user_id = req.session.user_id;
+
+    if (!isValideSchedule(req.body)) {
+        res.sendStatus(400);
+    }
+
     var updateSchedule = new Schedule(req.body);
     updateSchedule.update(function (err) {
         if (err) {

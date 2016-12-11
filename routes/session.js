@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var User = require("../models/User");
-
+var Utils = require("../utils/Utils");
 
 router.post('/', function(req, res, next) {
-	var user = {user_name : req.body.user_name, password : req.body.password};
+	var user_name = req.body.user_name;
+	var password = req.body.password;
+	if (!Utils.isString(user_name) || !Utils.isString(password)) {
+		res.render("login", {wrongInfo: "something wrong"});
+	}
+	var user = {user_name:user_name, password:password};
 	User.findByName(user.user_name, function(err, user_find) {
 		if (err) {
 			// server error

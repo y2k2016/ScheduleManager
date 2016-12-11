@@ -42,9 +42,12 @@ router.get('/', function(req, res, next) {
 
 router.post("/", checkLogin);
 router.post("/", function(req, res, next) {
-	var year = req.body.year;
-	var month = req.body.month;
+	var year = parseInt(req.body.year);
+	var month = parseInt(req.body.month);
 
+	if (isNaN(year) || isNaN(month)) {
+		return res.sendStatus(400);
+	}
 	var user_id = req.session.user_id;
 
 	Schedule.findByUserID(user_id, function(err, schedules) {
