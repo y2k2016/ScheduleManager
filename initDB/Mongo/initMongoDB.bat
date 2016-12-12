@@ -1,0 +1,1 @@
+mongo -- quite initMongoDB.js

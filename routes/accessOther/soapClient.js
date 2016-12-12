@@ -12,13 +12,7 @@ function accessBySoap(name, date, callback) {
 			if (err) {
 				return callback(err);
 			}
-			// console.log(err);
-			// console.log(client);
-			// console.log(client.lastResponse);
-			// console.log(result)
-			// if (result) {
-			// 	console.log(result.schedule);
-			// }
+			callback(undefined, []);
 		});
 	});
 }

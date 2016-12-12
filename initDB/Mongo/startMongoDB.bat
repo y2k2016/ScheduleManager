@@ -1,0 +1,1 @@
+mongod --port 27017 --dbpath D:\MongoDB\Server\3.2\data\db
