@@ -8,6 +8,9 @@ var Utils = require("../utils/Utils");
 var accessByRest = require("./accessOther/restClient");
 var accessBySoap = require("./accessOther/soapClient");
 
+var Systems = {own:"ScheduleManager1", other:"ScheduleManager2"};
+var ServiceType = {restful:"restful", soap:"soap"};
+
 function checkLogin(req, res, next) {
     if (!req.session.user_id || !req.session.user_name) {
         return res.sendStatus(401);
@@ -19,10 +22,13 @@ router.post("/", checkLogin);
 router.post("/", function(req, res, next) {
     var name = req.body.friend_name;
     var date = new Date(req.body.date);
+    if (!Utils.isString(name) || isNaN(date.getTime())) {
+        return res.sendStatus(400);
+    }
     var systemType = req.body.systemType;
     var serviceType = req.body.serviceType;
 
-    if (systemType=="ScheduleManager1") {
+    if (systemType==Systems.own) {
         User.findByName(name, function(err, user) {
             if (err) {
                 return res.sendStatus(500);
@@ -46,22 +52,19 @@ router.post("/", function(req, res, next) {
         })
     }
     else {
-        if (serviceType == "restful") {
-            accessByRest(name, date, function(err, mess_schedules) {
-                if (err) {
-                    return res.sendStatus(500);
-                }
-                res.json({schedules:mess_schedules});
-            })
+        var accessOther;
+        if (serviceType == ServiceType.restful) {
+            accessOther = accessByRest;
         }
         else {
-            accessBySoap(name, date, function(err, mess_schedules) {
-                if (err) {
-                    return res.sendStatus(500);
-                }
-                res.json({schedules:mess_schedules});
-            })
+            accessOther = accessBySoap;
         }
+        accessOther(name, date, function(err, mess_schedules) {
+            if (err) {
+                return res.sendStatus(500);
+            }
+            res.json({schedules:mess_schedules});
+        })
     }
 });
 

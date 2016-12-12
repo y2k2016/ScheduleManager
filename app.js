@@ -13,7 +13,7 @@ var login = require("./routes/login");
 var logout = require("./routes/logout");
 var session = require("./routes/session");
 var friend = require("./routes/friend");
-var api = require("./routes/api");
+var restService = require("./routes/schedule-service/restful/restService");
 
 var app = express();
 
@@ -42,7 +42,7 @@ app.use("/login", login);
 app.use("/logout", logout);
 app.use("/schedule", schedule);
 app.use("/friend", friend);
-app.use("/api", api);
+app.use("/api", restService);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

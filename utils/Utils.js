@@ -10,4 +10,5 @@ Utils.isSameDate = function(a,b){
             && a.getMonth() == b.getMonth() 
             && a.getDate()  == b.getDate();
 }
+
 module.exports = Utils;

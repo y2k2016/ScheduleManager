@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('ScheduleManager:server');
 var http = require('http');
 var soap = require('soap');
-var soapService = require("../routes/soap/soapService");
+var soapService = require("../routes/schedule-service/soap/soapService");
 
 /**
  * Get port from environment and store in Express.

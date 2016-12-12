@@ -22,7 +22,7 @@ function accessByRest(user_name, query_date, callback) {
     var month = query_date.getMonth();
     var day = query_date.getDate();
     var sd = new Date(year, month, day);
-    var ed = new Date(year, month, day+1);
+    var ed = new Date(sd.getTime()+24*60*1000);
 
     var args = {
         path: { "name": user_name, "start_date": sd.toJSON(), "end_date": ed.toJSON() },
@@ -31,16 +31,22 @@ function accessByRest(user_name, query_date, callback) {
 
     client.get(req_url, args, function(data, response){
         if (!data) {
-            return callback(err);
+            return callback(new Error("no data"));
         }
         if (data.result != 0) {
             // to-do
-            return;
+            return callback(new Error("data.result:0"));
+        }
+        if (!(data.schedules instanceof Array) || isNaN(parseInt(data.span))) {
+            return callback(new Error("funny"));
         }
         var mess_schedules = []
         
         for (var i = 0; i < data.schedules.length; i++) {
             var start_date = new Date(data.schedules[i].date);
+            if (isNaN(start_date.getTime())) {
+                return callback(new Error("he"));
+            }
             var end_date = new Date(start_date.getTime()+data.span*60*1000);
             mess_schedules[i] = {start_date:start_date, end_date:end_date};
         }
